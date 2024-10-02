@@ -15,7 +15,7 @@
 **Q) How does the application handle the assignment of trainers and the email notification feature?**  
 (Describe the implementation of the email functionality and how Mailhog was used for testing.)
 
-***A) ***
+***A)once you click on the assign trainer button a request is mæde to the database to embed the trainer informætion to the courses such the the trainer becomes part of the courses***
 
 **Q) What command do you use to start the application locally?**  
 `(Provide the command, e.g., docker-compose up, npm start)`
@@ -33,7 +33,7 @@
 **Q) Which parts of the project are you most proud of? Why?**  
 (Highlight the parts of the code that you think are most well-written or efficient.)
 
-***A) ***
+***A)the to display and fetch the different couses from the mongo db database***
 
 **Q) Which parts did you spend the most time on? What did you find most challenging?**  
 (Describe any difficulties or complexities you encountered during development.)
