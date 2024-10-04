@@ -74,6 +74,7 @@ export const AssignTrainer = async (courseId,trainerName) => {
 
     try {
        conectToDB()
+       
 
        const course = await Course.findById(courseId)
 

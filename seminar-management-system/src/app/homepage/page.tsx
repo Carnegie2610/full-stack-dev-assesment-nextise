@@ -90,64 +90,66 @@ const Courses = async () => {
             </tr>
           </thead>
           <tbody>
-            {courses.map((course) => (
-              <tr key={course.id}>
-                <td className="py-3 px-4 border-b">{course.course_name}</td>
-                <td className="py-3 px-4 border-b">{format(new Date(course.date), 'MMMM dd, yyyy')}</td>
-                <td className="py-3 px-4 border-b">{course.subjects}</td>
-                <td className="py-3 px-4 border-b">{course.location}</td>
-                <td className="py-3 px-4 border-b">{course.participants}</td>
-                <td className="py-3 px-4 border-b">{course.price}</td>
-                <td className="py-3 px-4 border-b">{course.trainer_price}</td>
-                <td className="py-3 px-4 border-b">
-                  
-                  {course.trainer ? (
-                    <div>
+            {courses.map((course) => 
+            (
+                <tr key={course.id}>
+                  <td className="py-3 px-4 border-b">{course.course_name}</td>
+                  <td className="py-3 px-4 border-b">{format(new Date(course.date), 'MMMM dd, yyyy')}</td>
+                  <td className="py-3 px-4 border-b">{course.subjects}</td>
+                  <td className="py-3 px-4 border-b">{course.location}</td>
+                  <td className="py-3 px-4 border-b">{course.participants}</td>
+                  <td className="py-3 px-4 border-b">{course.price}</td>
+                  <td className="py-3 px-4 border-b">{course.trainer_price}</td>
+                  <td className="py-3 px-4 border-b">
+                    
+                    {course.trainer ? (
                       <div>
-                        <strong>{course.trainer.name}</strong>
+                        <div>
+                          <strong>{course.trainer.name}</strong>
+                        </div>
+                        <div>{course.trainer.trainingSubjects.join(", ")}</div>
+                        <div>{course.trainer.email}</div>
                       </div>
-                      <div>{course.trainer.trainingSubjects.join(", ")}</div>
-                      <div>{course.trainer.email}</div>
-                    </div>
-                  ) : (
-                    <span>No trainer assigned</span>
-                  )} 
-                </td>
-                <td className="py-3 px-4 border-b flex space-x-2">
-                  <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600">
-                    Edit
-                  </button>
-                  <button className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600">
-                    Delete
-                  </button>
-                  {course.trainer ? (
-                    <button className="bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600">
-                      Remove Trainer
+                    ) : (
+                      <span>No trainer assigned</span>
+                    )} 
+                  </td>
+                  <td className="py-3 px-4 border-b flex space-x-2">
+                    <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600">
+                      Edit
                     </button>
-                  ) : (
-                    <div className="flex items-center space-x-2">
-                      <select className="border bg-gray-800 border-gray-300 px-4 py-2 rounded-lg shadow-md"
-                       
-                      >
-                        <option value="">Select Trainer</option>
-                        {trainers.map((trainer) => (
-                          <option key={trainer.id} value={trainer.id}>
-                            {trainer.Trainer_name}
-                          </option>
-                        ))}
-                      </select>
-                        <button  onClick={async () => {
-                          AssignTrainer()
-                        }} 
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">
-                        Assign Trainer
+                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600">
+                      Delete
+                    </button>
+                    {course.trainer ? (
+                      <button className="bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600">
+                        Remove Trainer
                       </button>
-                      
-                      
-                    </div>
-                  )}
-                </td>
-              </tr>
+                    ) : (
+                      <form action={AssignTrainer}>
+
+                      <div className="flex items-center space-x-2">
+                        <select className="border bg-gray-800 border-gray-300 px-4 py-2 rounded-lg shadow-md"
+                        
+                        >
+                          <option value="">Select Trainer</option>
+                          {trainers.map((trainer) => (
+                            <option key={trainer.id} value={trainer.id}>
+                              {trainer.Trainer_name}
+                            </option>
+                          ))}
+                        </select>
+                          <button  
+                          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600" type="submit">
+                          Assign Trainer
+                        </button>
+                        
+                        
+                      </div>
+                      </form>
+                    )}
+                  </td>
+                </tr>
             ))}
           
           </tbody>
