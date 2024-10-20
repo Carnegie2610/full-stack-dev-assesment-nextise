@@ -61,5 +61,19 @@ const TrainerSchema = new mongoose.Schema
    
 }, {timestamps:true})
 
+const UserSchema = new mongoose.Schema
+({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+}, {timestamps:true})
+
+export const User = mongoose.models.user || mongoose.model("user",UserSchema)
 export const Course = mongoose.models.course || mongoose.model("course",courseSchema)
 export const Trainer = mongoose.models.trainer || mongoose.model("trainer",TrainerSchema)

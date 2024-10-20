@@ -1,9 +1,38 @@
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: frontend
     command: npm run dev
+    restart: always
     ports:
       - "8000:3000"
     volumes:
       - ./:/app
-  
+    environment:
+      - MONGO_URL=mongodb://${DBUSER}:${DBPASS}@mongodb:27017/seminar
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DBUSER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DBPASS}
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+volumes:
+  mongo_data:
