@@ -4,30 +4,31 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { conectToDB } from "./lib/utils";
 import { User } from "../src/lib/models";
 import bcrypt from "bcrypt";
+
 type Credentials = { username: string; password: string };
 const login = async (credentials: Credentials) => {
 	try {
-		conectToDB();
+		await conectToDB();
+
 		const user = await User.findOne({ username: credentials.username });
-
-		if (!user) throw new Error("user not found");
-
+		if (!user) {
+			console.error("User not found:", credentials.username);
+			throw new Error("Invalid credentials");
+		}
 		const isPasswordCorrect = await bcrypt.compare(
 			credentials.password,
 			user.password
 		);
-
 		if (!isPasswordCorrect) throw new Error("password is incorrect");
-
+		console.log("passwords match");
 		return user;
 	} catch (error) {
-		console.log(error);
-		throw new Error("login failed");
+		console.error("Login error:", error);
+		throw new Error("Login failed");
 	}
 };
 
-export const { signIn, signOut } = NextAuth({
-	...authConfig,
+export const { signIn } = NextAuth({
 	providers: [
 		CredentialsProvider({
 			// The name to display on the sign in form (e.g. 'Sign in with...')
@@ -40,7 +41,18 @@ export const { signIn, signOut } = NextAuth({
 				username: { label: "username", type: "text", placeholder: "jsmith" },
 				password: { label: "password", type: "password" },
 			},
+			// async authorize(credentials) {
+			// 	if (credentials === null) return null;
+			// 	try {
+			// 		const user = await login(credentials);
+			// 		return user;
+			// 	} catch (err) {
+			// 		console.log(err);
+			// 		throw new Error("login failed");
+			// 	}
+			// },
 			async authorize(credentials) {
+				if (credentials === null) return null;
 				try {
 					const user = await login(credentials);
 					return user;

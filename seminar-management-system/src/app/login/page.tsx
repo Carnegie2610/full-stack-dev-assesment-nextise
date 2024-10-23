@@ -1,6 +1,9 @@
 import { authenticate } from "@/lib/actions";
+import { fetchUsers } from "@/lib/data";
 
-export default function Login() {
+const Login = async () => {
+	const users = await fetchUsers();
+	console.log(users);
 	return (
 		<div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
 			<div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
@@ -19,6 +22,7 @@ export default function Login() {
 							type="text"
 							className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
 							placeholder="Enter your username"
+							name="username"
 						/>
 					</div>
 					<div>
@@ -32,6 +36,7 @@ export default function Login() {
 							type="password"
 							className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
 							placeholder="Enter your password"
+							name="password"
 						/>
 					</div>
 					<button
@@ -43,4 +48,5 @@ export default function Login() {
 			</div>
 		</div>
 	);
-}
+};
+export default Login;

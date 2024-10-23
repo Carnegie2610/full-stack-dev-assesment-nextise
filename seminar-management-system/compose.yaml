@@ -4,10 +4,9 @@ services:
       context: .
       dockerfile: dockerfile
     container_name: frontend
-    command: npm run dev
     restart: always
     ports:
-      - "8000:3000"
+      - "9000:3000"
     volumes:
       - ./:/app
     environment:
@@ -31,8 +30,8 @@ services:
     image: mailhog/mailhog:latest
     restart: always
     ports:
-      - 1025:1025
-      - 8025:8025
+      - 1026:1025
+      - 8026:8025
 
 volumes:
   mongo_data:

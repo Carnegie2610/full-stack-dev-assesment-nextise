@@ -119,10 +119,12 @@ export const AssignTrainer = async (formData) => {
 export const authenticate = async (formData) => {
 	"use server";
 	const { username, password } = Object.fromEntries(formData);
+
 	try {
+		console.log(username, password);
 		await signIn("credentials", { username, password });
-	} catch (err) {
-		console.log(err);
-		throw err;
+	} catch (error) {
+		console.log(error);
+		throw new Error("failed to authenticate");
 	}
 };
